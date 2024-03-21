@@ -1,0 +1,21 @@
+{
+  "name": "reduxstarter",
+  "version": "1.0.0",
+  "description": "redux starter project",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js"
+  },
+  "author": "Rekha",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "immer": "^10.0.4",
+    "lodash": "^4.17.21",
+    "redux": "^5.0.1"
+  }
+}

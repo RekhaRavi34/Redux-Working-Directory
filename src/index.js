@@ -1,5 +1,6 @@
 import configureStore from "./store/configureStore";
 import {bugAdded,bugRemoved,bugResolved} from "./store/bugs";
+import {projectAdded} from './store/projects'
 
 const store = configureStore();
 console.log(store)
@@ -16,3 +17,4 @@ store.dispatch(bugAdded({description:"Adding Bug"}))
 
 store.dispatch(bugResolved({id:1}))
 store.dispatch(bugRemoved({id:1}))
+store.dispatch(projectAdded({name:'Rekha'}))

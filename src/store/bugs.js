@@ -14,7 +14,7 @@ const slice = createSlice({
         bugAdded:(bugs,action)=>{
             bugs.push({ id:++lastid,
                         description:action.payload.description,
-                        resolved:false, })
+                        resolved:false, })          
         },
         bugResolved:(bugs,action)=>{
             const index= bugs.findIndex(bug => bug.id===action.payload.id)
@@ -25,6 +25,8 @@ const slice = createSlice({
         }
     }
 })
+
+console.log(slice)
 
 export default slice.reducer;
 export const {bugAdded,bugResolved,bugRemoved} = slice.actions;
@@ -43,10 +45,12 @@ export const {bugAdded,bugResolved,bugRemoved} = slice.actions;
 //                     description:action.payload.description,
 //                     resolved:false, })
 //     })
+///we can also use addCAse here
 //     .addMatcher((action) => action.type.endsWith('resolved') , (bugs,action) => {
 //         const index= bugs.findIndex(bug => bug.id===action.payload.id)
 //         bugs[index].resolved=true;
 //     })
+//we can also use addCAse here
 //     .addMatcher((action) => action.type.endsWith('removed') , (bugs,action) => {
 //         return bugs.filter(bug => bug.id !== action.payload.id)
 //     })
@@ -60,6 +64,7 @@ export const {bugAdded,bugResolved,bugRemoved} = slice.actions;
 
 //     //key:value
 //     //action:function (event => eventhandler)
+// here we are using [] as bugAdded is an object, so we use the computed property syntax to get the type of action
 //     [bugAdded.type]: (bugs,action)=>{
 //         bugs.push({ id:++lastid,
 //                      description:action.payload.description,

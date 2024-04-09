@@ -22,6 +22,11 @@ const slice = createSlice({
         },
         bugRemoved:(bugs,action)=>{
             return bugs.filter(bug => bug.id !== action.payload.id)
+        },
+        bugAssignedToUser:(bugs,action)=>{
+            const { bugId, userId } = action.payload;
+            const index= bugs.findIndex(bug => bug.id===bugId)
+            bugs[index].userid = userId;
         }
     }
 })
@@ -29,19 +34,26 @@ const slice = createSlice({
 
 
 export default slice.reducer;
-export const {bugAdded,bugResolved,bugRemoved} = slice.actions;
+export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser} = slice.actions;
 
 
 // selector function
 
 // export const getUnResolvedBugsSelector= (state) => state.entities.bugs.filter(bug=>!bug.resolved)
 
-// memoizing selectors using createSelector from reselect
+// memoizing selectors using createSelector(this will return a function) from reselect
 
 // bugs => get unresolved bugs from cache
+
 export const getUnResolvedBugsSelector= createSelector(
     state=>state.entities.bugs,
     bugs=>bugs.filter(bug=>!bug.resolved)
+)
+
+// bugs => get bugs by userid
+export const getBugsbyUserSelector = (userId) =>createSelector(
+    state=>state.entities.bugs,
+    bugs=>bugs.filter(bug=>bug.userid === userId)
 )
 
 // // action with redux toolkit

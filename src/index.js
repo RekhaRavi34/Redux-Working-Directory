@@ -9,6 +9,8 @@ const unsubscribe = store.subscribe(()=>{
 })
 
 store.dispatch(bugAdded({description:"Adding Bug"}))
+store.dispatch(bugAdded({description:"Adding Bug"}))
+store.dispatch(bugAdded({description:"Adding Bug"}))
 
 // unsubscribe();
 
@@ -16,5 +18,5 @@ store.dispatch(bugAdded({description:"Adding Bug"}))
 
 
 store.dispatch(bugResolved({id:1}))
-store.dispatch(bugRemoved({id:1}))
+// store.dispatch(bugRemoved({id:1}))
 store.dispatch(projectAdded({name:'Rekha'}))

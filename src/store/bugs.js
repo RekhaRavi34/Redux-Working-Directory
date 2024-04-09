@@ -26,7 +26,7 @@ const slice = createSlice({
     }
 })
 
-console.log(slice)
+
 
 export default slice.reducer;
 export const {bugAdded,bugResolved,bugRemoved} = slice.actions;

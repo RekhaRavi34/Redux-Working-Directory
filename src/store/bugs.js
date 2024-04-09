@@ -36,6 +36,9 @@ export const {bugAdded,bugResolved,bugRemoved} = slice.actions;
 
 // export const getUnResolvedBugsSelector= (state) => state.entities.bugs.filter(bug=>!bug.resolved)
 
+// memoizing selectors using createSelector from reselect
+
+// bugs => get unresolved bugs from cache
 export const getUnResolvedBugsSelector= createSelector(
     state=>state.entities.bugs,
     bugs=>bugs.filter(bug=>!bug.resolved)

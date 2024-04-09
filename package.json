@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^2.2.2",
     "immer": "^10.0.4",
     "lodash": "^4.17.21",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "reselect": "^5.1.0"
   }
 }

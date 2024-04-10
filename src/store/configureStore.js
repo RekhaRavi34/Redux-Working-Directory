@@ -1,10 +1,16 @@
 // code using redux toolkit
 import { configureStore } from '@reduxjs/toolkit'
 import reducer from './reducer'
+import logger from './middleware/logger';
 
 export default function () {
-    console.log(configureStore({reducer}));
-    return configureStore({reducer});
+    return configureStore({
+        reducer,
+        //includes default middleware of redux toolkit
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+        // //excludes default middleware
+        // middleware:() =>[logger]
+    });
     
 }
 

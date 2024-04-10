@@ -12,25 +12,25 @@ const unsubscribe = store.subscribe(()=>{
 
 store.dispatch(userAdded({name:'Rekha'}))
 
-store.dispatch(userAdded({name:'Nirisha'}))
+// store.dispatch(userAdded({name:'Nirisha'}))
 
-store.dispatch(projectAdded({name:'Project 1'}))
+// store.dispatch(projectAdded({name:'Project 1'}))
 
-store.dispatch(bugAdded({description:"Adding Bug"}))
-store.dispatch(bugAdded({description:"Adding Bug"}))
-store.dispatch(bugAdded({description:"Adding Bug"}))
+// store.dispatch(bugAdded({description:"Adding Bug"}))
+// store.dispatch(bugAdded({description:"Adding Bug"}))
+// store.dispatch(bugAdded({description:"Adding Bug"}))
 
-store.dispatch(bugAssignedToUser({ bugId:1 ,userId:1, }))
-// unsubscribe();
+// store.dispatch(bugAssignedToUser({ bugId:1 ,userId:1, }))
+// // unsubscribe();
 
-// store.dispatch(bugRemoved("Removed Bug"))
-
-
-store.dispatch(bugResolved({id:1}))
-// store.dispatch(bugRemoved({id:1}))
+// // store.dispatch(bugRemoved("Removed Bug"))
 
 
-const getunresolvedbugs = getUnResolvedBugsSelector(store.getState())
-const getbugsbyuser = getBugsbyUserSelector(1)(store.getState())
-console.log(getunresolvedbugs)
-console.log(getbugsbyuser)
+// store.dispatch(bugResolved({id:1}))
+// // store.dispatch(bugRemoved({id:1}))
+
+
+// const getunresolvedbugs = getUnResolvedBugsSelector(store.getState())
+// const getbugsbyuser = getBugsbyUserSelector(1)(store.getState())
+// console.log(getunresolvedbugs)
+// console.log(getbugsbyuser)

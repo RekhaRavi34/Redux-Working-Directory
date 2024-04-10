@@ -9,10 +9,17 @@ const store = configureStore();
  // call an api
  // if promise is resolved => dispatch()
  // if promise is rejected => dispatch()
- store.dispatch((dispatch,getState)=>{
-    dispatch({type:"bugadded", bugs:[1,2,3]})
+ //thunk helps us to pass a function to dispatch instead of a plain js object(action)
+//  store.dispatch((dispatch,getState)=>{
+//     dispatch({type:"bugadded", bugs:[1,2,3]})
+//  })
+//exercise
+ store.dispatch({
+    type:"error",
+    payload:{
+        message:'An error occurred'
+    }
  })
-
 
 // console.log(store)
 // const unsubscribe = store.subscribe(()=>{

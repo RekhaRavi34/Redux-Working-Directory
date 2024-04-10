@@ -4,13 +4,23 @@ import {projectAdded} from './store/projects'
 import { userAdded } from "./store/users";
 
 const store = configureStore();
-console.log(store)
-const unsubscribe = store.subscribe(()=>{
-    console.log("store changed", store.getState());
-})
+
+//To demonstrate middleware usage
+ // call an api
+ // if promise is resolved => dispatch()
+ // if promise is rejected => dispatch()
+ store.dispatch((dispatch,getState)=>{
+    dispatch({type:"bugadded", bugs:[1,2,3]})
+ })
 
 
-store.dispatch(userAdded({name:'Rekha'}))
+// console.log(store)
+// const unsubscribe = store.subscribe(()=>{
+//     console.log("store changed", store.getState());
+// })
+
+
+// store.dispatch(userAdded({name:'Rekha'}))
 
 // store.dispatch(userAdded({name:'Nirisha'}))
 

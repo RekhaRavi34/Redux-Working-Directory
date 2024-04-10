@@ -2,6 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import reducer from './reducer'
 import logger from './middleware/logger';
+import func from './middleware/func';
 
 export default function () {
     return configureStore({
@@ -9,7 +10,7 @@ export default function () {
         //includes default middleware of redux toolkit
         middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger({destination:"console"})),
         // //excludes default middleware
-        // middleware:() =>[logger]
+        // middleware:() =>[logger({destination:"console"}),func]
     });
     
 }

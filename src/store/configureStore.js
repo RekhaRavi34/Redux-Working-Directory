@@ -7,7 +7,7 @@ export default function () {
     return configureStore({
         reducer,
         //includes default middleware of redux toolkit
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger({destination:"console"})),
         // //excludes default middleware
         // middleware:() =>[logger]
     });

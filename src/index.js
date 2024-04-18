@@ -5,6 +5,16 @@ import { userAdded } from "./store/users";
 
 const store = configureStore();
 
+store.dispatch({
+    type:"apiCallBegan",
+    payload:{
+    url:'/bugs',
+    
+    onSuccess:"bugReceived",
+    onError:"bugRequestFailed"
+}
+})
+
 //To demonstrate middleware usage
  // call an api
  // if promise is resolved => dispatch()
@@ -12,14 +22,16 @@ const store = configureStore();
  //thunk helps us to pass a function to dispatch instead of a plain js object(action)
 //  store.dispatch((dispatch,getState)=>{
 //     dispatch({type:"bugadded", bugs:[1,2,3]})
+//  })  
+
+
+//middleware exercise
+//  store.dispatch({
+//     type:"error",
+//     payload:{
+//         message:'An error occurred'
+//     }
 //  })
-//exercise
- store.dispatch({
-    type:"error",
-    payload:{
-        message:'An error occurred'
-    }
- })
 
 // console.log(store)
 // const unsubscribe = store.subscribe(()=>{

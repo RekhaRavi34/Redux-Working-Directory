@@ -8,6 +8,12 @@ const store = configureStore();
 
 store.dispatch(loadbugs())
 
+// store.dispatch(apiCallBegan({
+//             url:'/bugs',
+//             method:'get',
+//             onSuccess:'bugs/bugsReceived'
+// }))
+
 //To demonstrate middleware usage
  // call an api
  // if promise is resolved => dispatch()

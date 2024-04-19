@@ -1,18 +1,12 @@
 import configureStore from "./store/configureStore";
-import {bugAdded,bugRemoved,bugResolved,bugAssignedToUser, getUnResolvedBugsSelector, getBugsbyUserSelector } from "./store/bugs";
+import {bugAdded,bugRemoved,bugResolved,bugAssignedToUser, getUnResolvedBugsSelector, getBugsbyUserSelector, loadbugs } from "./store/bugs";
 import {projectAdded} from './store/projects'
 import { userAdded } from "./store/users";
 import {apiCallBegan,apiCallFailed,apiCallSuccess} from './store/api'
 
 const store = configureStore();
 
-store.dispatch(apiCallBegan({
-            url:'/bugs',
-            method:'get',
-            data:{},
-            onSuccess:'bugsReceived',
-            onError:apiCallFailed.type
-}))
+store.dispatch(loadbugs())
 
 //To demonstrate middleware usage
  // call an api

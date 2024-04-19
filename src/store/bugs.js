@@ -2,6 +2,7 @@
 
 import { createAction, createReducer, createSlice } from "@reduxjs/toolkit"
 import { createSelector } from 'reselect'
+import { apiCallBegan } from "./api";
 
 /// using redux slice
 let lastid = 0;
@@ -15,6 +16,9 @@ const slice = createSlice({
     reducers:{
 
         //actions=>action handlers
+        bugsReceived:(bugs,action)=>{
+            bugs.list=action.payload;
+        },
         bugAdded:(bugs,action)=>{
             bugs.list.push({ id:++lastid,
                         description:action.payload.description,
@@ -38,7 +42,16 @@ const slice = createSlice({
 
 
 export default slice.reducer;
-export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser} = slice.actions;
+export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived} = slice.actions;
+
+// action creator for apiCallbegan 
+const url = '/bugs'
+export const loadbugs = () => apiCallBegan({
+    url,
+    onSuccess: bugsReceived.type
+})
+// we are seperating it from the ui layer (index.js)
+
 
 
 // selector function

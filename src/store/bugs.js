@@ -7,26 +7,30 @@ import { createSelector } from 'reselect'
 let lastid = 0;
 const slice = createSlice({
     name:'bugs',
-    initialState:[],
+    initialState:{
+        list:[],
+        loading:false,
+        lastFetch:null
+    },
     reducers:{
 
         //actions=>action handlers
         bugAdded:(bugs,action)=>{
-            bugs.push({ id:++lastid,
+            bugs.list.push({ id:++lastid,
                         description:action.payload.description,
                         resolved:false, })          
         },
         bugResolved:(bugs,action)=>{
-            const index= bugs.findIndex(bug => bug.id===action.payload.id)
-            bugs[index].resolved=true;
+            const index= bugs.list.findIndex(bug => bug.id===action.payload.id)
+            bugs.list[index].resolved=true;
         },
         bugRemoved:(bugs,action)=>{
-            return bugs.filter(bug => bug.id !== action.payload.id)
+            return bugs.list.filter(bug => bug.id !== action.payload.id)
         },
         bugAssignedToUser:(bugs,action)=>{
             const { bugId, userId } = action.payload;
-            const index= bugs.findIndex(bug => bug.id===bugId)
-            bugs[index].userid = userId;
+            const index= bugs.list.findIndex(bug => bug.id===bugId)
+            bugs.list[index].userid = userId;
         }
     }
 })
@@ -47,13 +51,13 @@ export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser} = slice.action
 
 export const getUnResolvedBugsSelector= createSelector(
     state=>state.entities.bugs,
-    bugs=>bugs.filter(bug=>!bug.resolved)
+    bugs=>bugs.list.filter(bug=>!bug.resolved)
 )
 
 // bugs => get bugs by userid
 export const getBugsbyUserSelector = (userId) =>createSelector(
     state=>state.entities.bugs,
-    bugs=>bugs.filter(bug=>bug.userid === userId)
+    bugs=>bugs.list.filter(bug=>bug.userid === userId)
 )
 
 // // action with redux toolkit

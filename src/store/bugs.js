@@ -16,8 +16,15 @@ const slice = createSlice({
     reducers:{
 
         //actions=>action handlers
+        bugsRequested:(bugs,action)=>{
+            bugs.loading=true;
+        },
         bugsReceived:(bugs,action)=>{
             bugs.list=action.payload;
+            bugs.loading=false;
+        },
+        bugsRequestFailed:(bugs,action)=>{
+            bugs.loading=false;
         },
         bugAdded:(bugs,action)=>{
             bugs.list.push({ id:++lastid,
@@ -42,13 +49,15 @@ const slice = createSlice({
 
 
 export default slice.reducer;
-export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived} = slice.actions;
+export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived, bugsRequested, bugsRequestFailed} = slice.actions;
 
 // action creator for apiCallbegan 
 const url = '/bugs'
 export const loadbugs = () => apiCallBegan({
     url,
-    onSuccess: bugsReceived.type
+    onStart:bugsRequested.type,
+    onSuccess: bugsReceived.type,
+    onError:bugsRequestFailed.type
 })
 // we are seperating it from the ui layer (index.js)
 

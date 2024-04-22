@@ -3,6 +3,7 @@
 import { createAction, createReducer, createSlice } from "@reduxjs/toolkit"
 import { createSelector } from 'reselect'
 import { apiCallBegan } from "./api";
+import moment from "moment";
 
 /// using redux slice
 let lastid = 0;
@@ -22,6 +23,7 @@ const slice = createSlice({
         bugsReceived:(bugs,action)=>{
             bugs.list=action.payload;
             bugs.loading=false;
+            bugs.lastFetch=Date.now();
         },
         bugsRequestFailed:(bugs,action)=>{
             bugs.loading=false;
@@ -52,13 +54,36 @@ export default slice.reducer;
 export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived, bugsRequested, bugsRequestFailed} = slice.actions;
 
 // action creator for apiCallbegan 
+
+// we are rewriting this to return a function instead of a object so that we can get the current state
+// with thunk we can return a function which has getstate and dispatch
+
 const url = '/bugs'
-export const loadbugs = () => apiCallBegan({
-    url,
-    onStart:bugsRequested.type,
-    onSuccess: bugsReceived.type,
-    onError:bugsRequestFailed.type
-})
+
+export const loadbugs = () => (dispatch, getState) =>{
+const {lastFetch} = getState().entities.bugs;
+
+const DiffInMinutes = moment().diff(moment(lastFetch),"minutes");
+
+if (DiffInMinutes < 10) return;
+    // here we need to explicitly call dispatch. 
+    //because we are not returning object that the dispatch in index.js can handle
+    dispatch(apiCallBegan({
+        url,
+        onStart:bugsRequested.type,
+        onSuccess: bugsReceived.type,
+        onError:bugsRequestFailed.type
+    }))
+}
+
+// const url = '/bugs'
+// export const loadbugs = () => apiCallBegan({
+//     url,
+//     onStart:bugsRequested.type,
+//     onSuccess: bugsReceived.type,
+//     onError:bugsRequestFailed.type
+// })
+
 // we are seperating it from the ui layer (index.js)
 
 

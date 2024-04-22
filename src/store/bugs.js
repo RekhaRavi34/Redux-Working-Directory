@@ -6,7 +6,7 @@ import { apiCallBegan } from "./api";
 import moment from "moment";
 
 /// using redux slice
-let lastid = 0;
+let lastid = 0; //added by server itself
 const slice = createSlice({
     name:'bugs',
     initialState:{
@@ -29,9 +29,7 @@ const slice = createSlice({
             bugs.loading=false;
         },
         bugAdded:(bugs,action)=>{
-            bugs.list.push({ id:++lastid,
-                        description:action.payload.description,
-                        resolved:false, })          
+            bugs.list.push(action.payload)     
         },
         bugResolved:(bugs,action)=>{
             const index= bugs.list.findIndex(bug => bug.id===action.payload.id)
@@ -53,10 +51,10 @@ const slice = createSlice({
 export default slice.reducer;
 export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived, bugsRequested, bugsRequestFailed} = slice.actions;
 
-// action creator for apiCallbegan 
+// action creator for apiCallbegan (getting data from server and putting in store)
 
 // we are rewriting this to return a function instead of a object so that we can get the current state
-// with thunk we can return a function which has getstate and dispatch
+// with thunk we can return a function which has getstate and dispatch received as argument from the thunk middleware function
 
 const url = '/bugs'
 
@@ -72,8 +70,44 @@ if (DiffInMinutes < 10) return;
         url,
         onStart:bugsRequested.type,
         onSuccess: bugsReceived.type,
-        onError:bugsRequestFailed.type
     }))
+}
+
+
+// action creator for apiCallbegan (sending data to server from store)
+
+export const addbug = (bug) =>{
+    return apiCallBegan({
+        url,
+        data:bug,
+        method:'POST',
+        onSuccess: bugAdded.type,
+    })
+
+}
+
+// resolve a bug and send data to server
+
+export const resolvebug = (id) =>{
+    return apiCallBegan({
+        url:url + '/' + id,
+        data:{resolved:true},
+        method:'PATCH',
+        onSuccess: bugResolved.type,
+    })
+
+}
+
+// resolve a bug and send data to server
+
+export const assignbug  = (bugId,userid) =>{
+    return apiCallBegan({
+        url:url + '/' + bugId,
+        data:{userId:userid},
+        method:'PATCH',
+        onSuccess: bugResolved.type,
+    })
+
 }
 
 // const url = '/bugs'

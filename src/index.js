@@ -1,13 +1,15 @@
 import configureStore from "./store/configureStore";
-import {bugAdded,bugRemoved,bugResolved,bugAssignedToUser, getUnResolvedBugsSelector, getBugsbyUserSelector, loadbugs } from "./store/bugs";
+import {bugAdded,bugRemoved,bugResolved,bugAssignedToUser, getUnResolvedBugsSelector, getBugsbyUserSelector, loadbugs, addbug, resolvebug, assignbug } from "./store/bugs";
 import {projectAdded} from './store/projects'
 import { userAdded } from "./store/users";
 import {apiCallBegan,apiCallFailed,apiCallSuccess} from './store/api'
+import { assign } from "lodash";
 
 const store = configureStore();
 
-store.dispatch(loadbugs())
+store.dispatch(loadbugs());
 
+setTimeout(()=>store.dispatch(assignbug(1,4)),4000)
 // store.dispatch(apiCallBegan({
 //             url:'/bugs',
 //             method:'get',

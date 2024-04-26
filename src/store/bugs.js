@@ -49,7 +49,7 @@ const slice = createSlice({
 
 
 export default slice.reducer;
-export const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived, bugsRequested, bugsRequestFailed} = slice.actions;
+const {bugAdded,bugResolved,bugRemoved, bugAssignedToUser,bugsReceived, bugsRequested, bugsRequestFailed} = slice.actions;
 
 // action creator for apiCallbegan (getting data from server and putting in store)
 
@@ -70,6 +70,7 @@ if (DiffInMinutes < 10) return;
         url,
         onStart:bugsRequested.type,
         onSuccess: bugsReceived.type,
+        onError:bugsRequestFailed.type
     }))
 }
 
